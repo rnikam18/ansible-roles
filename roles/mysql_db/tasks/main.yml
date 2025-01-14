@@ -1,0 +1,26 @@
+---
+- name: Install MySQL database
+  ansible.builtin.apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+      - mysql-server
+      - mysql-client
+- name: Start MySQL Service
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes
+- name: Create Application database
+  community.mysql.mysql_db:
+    name: "{{db_name}}"
+    state: present
+  ignore_errors: true
+- name: Create Database user
+  community.mysql.mysql_user:
+    name: "{{db_user}}"
+    password: "{{db_user_password}}"
+    priv: '*.*:All'
+    state: present
+    host: '%'
+  ignore_errors: true

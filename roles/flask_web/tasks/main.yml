@@ -1,0 +1,14 @@
+- name: Install Python Flask dependency
+  ansible.builtin.pip:
+    name: "{{item}}"
+    state: present
+  with_items:
+      - flask
+      - flask-mysql
+- name: Copy source code
+  ansible.builtin.copy:
+    src: app.py
+    dest: /opt/app.py
+- name: Start web server
+  ansible.builtin.shell:
+    name: FLASK_APP=app.py flask run --host=0.0.0.0
