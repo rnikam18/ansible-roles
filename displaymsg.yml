@@ -1,0 +1,10 @@
+---
+- name: This is my first play
+  hosts: localhost
+  tasks:
+    - name: first task
+      ansible.builtin.debug:
+        msg: "RJN"
+    - name: Second task
+      ansible.builtin.debug:
+        msg: "MEERA"
